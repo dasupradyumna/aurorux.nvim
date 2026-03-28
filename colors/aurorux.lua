@@ -19,28 +19,27 @@ vim.g.colors_name = 'aurorux'
 ------------------------------- THEME COLORS ------------------------------
 
 local colors = {
-    bg      = '#191b18',  -- 1.5
-    -- fg      = '#c4ccc0',  -- 12
-    fg      = '#ccd4c8',  -- 12.5
-    -- XXX: Each color will have 3 variants : dark, normal, bright
-    -- black   = { '#313330', '#4a4e48', '#626660' },  -- 3 | 4.5 | 6
-    -- black   = { '#2a2e28', '#3a3e38', '#4a4e48' },  -- 2.5 | 3.5 | 4.5
+    bg      = '#191b18',                            -- 1.5
+    fg      = '#ccd4c8',                            -- 12.5
+    -- 1(statusline,inline-code) 2(curline,qfline) 3(winsep,folded,nontext,tablinesel)
     black   = { '#212320', '#313330', '#414340' },  -- 2 | 3 | 4
-    -- white   = { '#7a7e78', '#939990', '#abb1a8' },  -- 7.5 | 9 | 10.5
-    -- white   = { '#6a6e68', '#939990', '#abb1a8' },  -- 6.5 | 9 | 10.5
-    -- white   = { '#626660', '#939990', '#abb1a8' },  -- 6 | 9 | 10.5
-    -- TODO: make comment lighter??
-    white   = { '#6a6e68', '#9ba198', '#b3b9b0' },  -- 6.5 | 9.5 | 11
-    magenta = { '#b363a9', '#c5aac1' },             -- fg(dark, light)
-    red     = { '#32100d', '#f0626a' },             -- bg(dark), fg(light)
-    orange  = { '#503408', '#d47452', '#e0b080' },  -- bg(dark) fg(dark, light)
-    yellow  = { '#2a2200', '#3a2e00', '#c4c780' },  -- bg(darker,dark) fg(light)
-    green   = { '#082a03', '#589b70', '#92b58c' },  -- bg(dark), fg(dark, light)
-    cyan    = { '#043430', '#5ca09d', '#9cbdb8' },  -- bg(dark), fg(dark, light)
-    blue    = { '#4f9dbc', '#90c6e4' },             -- fg(dark, light)
+    -- 1(conceal,lno,inlayhint) 2(statusline,comment) 3(modemsg)
+    white   = { '#626660', '#939990', '#b3b9b0' },  -- 6 | 9 | 11
+    -- B(diffdelete) FD(spellbad,error) FL(operator,removed,inline-code,uncheckbox)
+    red     = { '#32100d', '#bb4a4f', '#f0626a' },
+    -- B(diffadd) FD(property) FL(string,added,ok,checkbox)
+    green   = { '#082a03', '#63a77a', '#96b68f' },
+    -- FD(spelllocal,hint,parameter) FL(dir,question,constant)
+    blue    = { '#4f9dbc', '#78b0c4' },
+    -- B(visual) FD(title,type) FL(identifier,info)
+    cyan    = { '#043430', '#67afa6', '#9cbdb8' },
+    -- FD(spellrare) FL(statement,link)
+    magenta = { '#b363a9', '#c59bc1' },
+    -- BD(diffchange) BL(difftext) FD() FL(changed)
+    yellow  = { '#2a2200', '#3a2e00', '#a9b670', '#c4c780' },
+    -- B(search) FD(spellcap,preproc,warn) FL(function)
+    orange  = { '#503408', '#d47452', '#dbaa70' },
 }
-
--- XXX: Do I need component colors?? Mostly yes, but double-check
 
 ----------------------------- HIGHLIGHT GROUPS ----------------------------
 
@@ -74,11 +73,11 @@ local highlights = {
     LineNr                                       = { fg = colors.white[1] },
     LineNrAbove                                  = { link = 'LineNr' },
     LineNrBelow                                  = { link = 'LineNr' },
-    CursorLineNr                                 = { bold = true, fg = colors.white[1] },
+    CursorLineNr                                 = { link = 'LineNr' },
     CursorLineFold                               = { link = 'FoldColumn' },
     CursorLineSign                               = { link = 'SignColumn' },
     MatchParen                                   = { link = 'Visual' },
-    ModeMsg                                      = { bold = true, fg = colors.white[2] },
+    ModeMsg                                      = { bold = true, fg = colors.white[3] },
     MsgArea                                      = { link = 'Normal' },
     MsgSeparator                                 = { link = 'WinSeparator' },
     MoreMsg                                      = { link = 'Question' },
@@ -103,53 +102,52 @@ local highlights = {
     Question                                     = { fg = colors.blue[2] },
     QuickFixLine                                 = { bold = true, bg = colors.black[2] },
     Search                                       = { bg = colors.orange[1] },
-    -- NOTE: Defaults to Visual highlighting the current placeholder
     SnippetTabstop                               = { underline = true },
     SpecialKey                                   = { link = 'NonText' },
     SpellBad                                     = { underdotted = true, sp = colors.red[2] },
-    SpellCap                                     = { underdotted = true, sp = colors.yellow[3] },
-    SpellLocal                                   = { underdotted = true, sp = colors.cyan[2] },
+    SpellCap                                     = { underdotted = true, sp = colors.orange[2] },
+    SpellLocal                                   = { underdotted = true, sp = colors.blue[1] },
     SpellRare                                    = { underdotted = true, sp = colors.magenta[1] },
     StatusLine                                   = {
         bold = true,
-        fg = colors.fg,
+        fg = colors.white[2],
         bg = colors.black[1],
     },
-    StatusLineNC                                 = { fg = colors.white[3], bg = colors.black[1] },
+    StatusLineNC                                 = { fg = colors.white[2], bg = colors.black[1] },
     StatusLineTerm                               = { link = 'StatusLine' },
     StatusLineTermNC                             = { link = 'StatusLineNC' },
     TabLine                                      = {},
     TabLineFill                                  = {},
     TabLineSel                                   = { bold = true, bg = colors.black[3] },
-    Title                                        = { bold = true, fg = colors.magenta[1] },
+    Title                                        = { bold = true, fg = colors.cyan[2] },
     Visual                                       = { bg = colors.cyan[1] },
     VisualNOS                                    = {},
     WarningMsg                                   = { link = 'DiagnosticWarn' },
     Whitespace                                   = { link = 'NonText' },
     WildMenu                                     = { link = 'PmenuSel' },
     WinBar                                       = { bold = true, fg = colors.fg },
-    WinBarNC                                     = { fg = colors.white[3] },
+    WinBarNC                                     = { fg = colors.white[2] },
 
     --------------------- SYNTAX ---------------------
     -- :help group-name
 
     Comment                                      = { fg = colors.white[2] },
 
-    Constant                                     = { fg = colors.blue[1] },
-    String                                       = { fg = colors.orange[3] },
+    Constant                                     = { fg = colors.blue[2] },
+    String                                       = { fg = colors.green[3] },
     Character                                    = { link = 'String' },
     Number                                       = { link = 'Constant' },
     Boolean                                      = { link = 'Constant' },
     Float                                        = { link = 'Constant' },
 
     Identifier                                   = { fg = colors.cyan[3] },
-    Function                                     = { fg = colors.yellow[3] },
+    Function                                     = { fg = colors.orange[3] },
 
-    Statement                                    = { fg = colors.magenta[1] },
+    Statement                                    = { fg = colors.magenta[2] },
     Conditional                                  = { link = 'Statement' },
     Repeat                                       = { link = 'Statement' },
     Label                                        = { link = 'Statement' },
-    Operator                                     = { fg = colors.red[2] },
+    Operator                                     = { fg = colors.red[3] },
     Keyword                                      = { link = 'Statement' },
     Exception                                    = { link = 'Statement' },
 
@@ -159,7 +157,7 @@ local highlights = {
     Macro                                        = { link = 'Operator' },
     PreCondit                                    = { link = 'Operator' },
 
-    Type                                         = { fg = colors.green[2] },
+    Type                                         = { fg = colors.cyan[2] },
     StorageClass                                 = { link = 'Operator' },
     Structure                                    = { link = 'Keyword' },
     Typedef                                      = { link = 'Type' },
@@ -180,8 +178,8 @@ local highlights = {
     Todo                                         = { bold = true },
 
     Added                                        = { fg = colors.green[3] },
-    Changed                                      = { fg = colors.yellow[3] },
-    Removed                                      = { fg = colors.red[2] },
+    Changed                                      = { fg = colors.yellow[4] },
+    Removed                                      = { fg = colors.red[3] },
 
     ------------------- DIAGNOSTICS ------------------
     -- :help diagnostic-highlights
@@ -189,13 +187,13 @@ local highlights = {
     DiagnosticError                              = { fg = colors.red[2] },
     DiagnosticWarn                               = { fg = colors.orange[2] },
     DiagnosticInfo                               = { fg = colors.cyan[3] },
-    DiagnosticHint                               = { fg = colors.blue[2] },
+    DiagnosticHint                               = { fg = colors.blue[1] },
     DiagnosticOk                                 = { fg = colors.green[3] },
 
     DiagnosticVirtualTextError                   = { italic = true, fg = colors.red[2] },
     DiagnosticVirtualTextWarn                    = { italic = true, fg = colors.orange[2] },
     DiagnosticVirtualTextInfo                    = { italic = true, fg = colors.cyan[3] },
-    DiagnosticVirtualTextHint                    = { italic = true, fg = colors.blue[2] },
+    DiagnosticVirtualTextHint                    = { italic = true, fg = colors.blue[1] },
     DiagnosticVirtualTextOk                      = { italic = true, fg = colors.green[3] },
 
     DiagnosticVirtualLinesError                  = { link = 'DiagnosticVirtualTextError' },
@@ -207,7 +205,7 @@ local highlights = {
     DiagnosticUnderlineError                     = { underdotted = true, sp = colors.red[2] },
     DiagnosticUnderlineWarn                      = { underdotted = true, sp = colors.orange[3] },
     DiagnosticUnderlineInfo                      = { underdotted = true, sp = colors.cyan[3] },
-    DiagnosticUnderlineHint                      = { underdotted = true, sp = colors.blue[2] },
+    DiagnosticUnderlineHint                      = { underdotted = true, sp = colors.blue[1] },
     DiagnosticUnderlineOk                        = { underdotted = true, sp = colors.green[3] },
 
     DiagnosticFloatingError                      = { link = 'DiagnosticError' },
@@ -230,7 +228,7 @@ local highlights = {
 
     ['@variable']                                = { link = 'Identifier' },
     ['@variable.builtin']                        = { link = 'Keyword' },
-    ['@variable.parameter']                      = { fg = colors.cyan[2] },
+    ['@variable.parameter']                      = { fg = colors.blue[1] },
     ['@variable.parameter.builtin']              = { link = 'Keyword' },
     ['@variable.member']                         = { link = '@property' },
 
@@ -238,21 +236,21 @@ local highlights = {
     ['@constant.builtin']                        = { link = 'Constant' },
     ['@constant.macro']                          = { link = 'PreProc' },
 
-    ['@module']                                  = { fg = colors.magenta[2] },
+    ['@module']                                  = { link = 'Constant' },
     ['@module.builtin']                          = { link = '@module' },
     ['@label']                                   = { link = 'Operator' },
 
     ['@string']                                  = { link = 'String' },
     ['@string.documentation']                    = { link = 'Comment' },
     ['@string.regexp']                           = { link = 'PreProc' },
-    ['@string.escape']                           = { link = 'Operator' },
+    ['@string.escape']                           = { link = 'Keyword' },
     ['@string.special']                          = { link = 'String' },
     -- ['@string.special.symbol'] = {}, -- XXX: where??
     -- ['@string.special.path'] = {},
     ['@string.special.url']                      = { link = '@markup.link' },
 
     ['@character']                               = { link = 'Character' },
-    ['@character.special']                       = { link = 'Operator' },
+    ['@character.special']                       = { link = 'Keyword' },
 
     ['@boolean']                                 = { link = 'Boolean' },
     ['@number']                                  = { link = 'Number' },
@@ -263,9 +261,9 @@ local highlights = {
     ['@type.definition']                         = { link = 'Type' },
     ['@type.qualifier']                          = { link = 'Operator' },  -- NOTE: Not in neovim documentation
 
-    ['@attribute']                               = { link = 'Operator' },
-    ['@attribute.builtin']                       = { link = 'Operator' },
-    ['@property']                                = { fg = colors.green[3] },
+    ['@attribute']                               = { link = 'Keyword' },
+    ['@attribute.builtin']                       = { link = 'Keyword' },
+    ['@property']                                = { fg = colors.green[2] },
 
     ['@function']                                = { link = 'Function' },
     ['@function.builtin']                        = { link = 'Function' },
@@ -281,7 +279,7 @@ local highlights = {
     ['@keyword.coroutine']                       = { link = 'Operator' },
     ['@keyword.function']                        = { link = 'Keyword' },
     ['@keyword.operator']                        = { link = 'Operator' },
-    ['@keyword.import']                          = { link = 'Operator' },
+    ['@keyword.import']                          = { link = 'Keyword' },
     ['@keyword.type']                            = { link = 'Keyword' },
     ['@keyword.modifier']                        = { link = 'Operator' },
     ['@keyword.repeat']                          = { link = 'Keyword' },
@@ -291,7 +289,7 @@ local highlights = {
     ['@keyword.conditional']                     = { link = 'Keyword' },
     ['@keyword.conditional.ternary']             = { link = 'Operator' },
     ['@keyword.directive']                       = { link = 'PreProc' },
-    ['@keyword.directive.define']                = { link = 'Operator' },
+    ['@keyword.directive.define']                = { link = 'Keyword' },
 
     ['@punctuation.delimiter']                   = { link = 'Delimiter' },
     ['@punctuation.bracket']                     = { link = 'Delimiter' },
@@ -325,13 +323,13 @@ local highlights = {
     ['@markup.link.label']                       = { link = '@markup.link' },
     ['@markup.link.url']                         = { link = '@markup.link' },
 
-    ['@markup.raw']                              = { fg = colors.red[2], bg = colors.black[1] },
+    ['@markup.raw']                              = { fg = colors.red[3], bg = colors.black[1] },
     ['@markup.raw.block']                        = { link = 'Comment' },
     ['@markup.raw.delimiter']                    = { link = 'Delimiter' },
 
     ['@markup.list']                             = { link = '@variable.parameter' },
     ['@markup.list.checked']                     = { fg = colors.green[3] },
-    ['@markup.list.unchecked']                   = { fg = colors.red[2] },
+    ['@markup.list.unchecked']                   = { fg = colors.red[3] },
 
     ['@diff.plus']                               = { link = 'DiffAdd' },
     ['@diff.minus']                              = { link = 'DiffDelete' },
@@ -397,10 +395,14 @@ local highlights = {
 
     -- Lua
     ['@constructor.lua']                         = { link = 'Delimiter' },
-    ['@lsp.typemod.variable.defaultLibrary.lua'] = { link = '@module' },
     ['@lsp.mod.global.lua']                      = { link = 'Constant' },
+    ['@lsp.typemod.keyword.documentation.lua']   = { link = '@label' },
+    ['@lsp.typemod.variable.defaultLibrary.lua'] = { link = '@module' },
 
     -------------------- LAZY.NVIM -------------------
+
+    ------------------ GITSIGNS.NVIM -----------------
+    GitSignsCurrentLineBlame                     = { link = 'LspInlayHint' },
 
     -- Commonly used highlights ??
 }
