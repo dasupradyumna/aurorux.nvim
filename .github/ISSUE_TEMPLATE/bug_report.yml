@@ -1,0 +1,104 @@
+name: Bug Report
+description: File a bug or an issue with aurorux.nvim
+title: "bug: "
+assignees: [dasupradyumna]
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before** reporting an issue, make sure to read the [documentation](https://github.com/dasupradyumna/aurorux.nvim) and search through [existing issues](https://github.com/dasupradyumna/aurorux.nvim/issues).
+  - type: checkboxes
+    attributes:
+      label: Did you check documentation and existing issues?
+      description: Make sure you have checked all of the below checkboxes before submitting an issue
+      options:
+        - label: I have read all the aurorux.nvim documentation
+          required: true
+        - label: I have searched through all existing issues of aurorux.nvim
+          required: true
+  - type: input
+    attributes:
+      label: "Neovim version (nvim -v)"
+      placeholder: v0.11.6
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: "Operating system"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: |
+        A clear and concise description of what the bug is. Please include any related errors you see in Neovim.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. ..
+        2. ...
+        3. ....
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Repro
+      description: |
+        Minimal `init.lua` to reproduce this issue. Save as `repro.lua` and run `nvim -u repro.lua`
+      value: |
+        -- DO NOT change the paths
+        local root = vim.fn.fnamemodify('./.repro', ':p')
+        -- set stdpaths to use .repro
+        for _, name in ipairs { 'config', 'data', 'state', 'cache' } do
+            vim.env[('XDG_%s_HOME'):format(name:upper())] = root .. '/' .. name
+        end
+
+        -- Bootstrap lazy.nvim manager
+        local plugins_path = root .. '/plugins'
+        vim.fn.mkdir(plugins_path, 'p')
+        local lazypath = plugins_path .. '/lazy.nvim'
+        if not vim.uv.fs_stat(lazypath) then
+            local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+            local out = vim.fn.system {
+                'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath,
+            }
+            if vim.v.shell_error ~= 0 then
+                vim.api.nvim_echo({
+                    { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+                    { out,                            'WarningMsg' },
+                    { '\nPress any key to exit...' },
+                }, true, {})
+                vim.fn.getchar()
+                os.exit(1)
+            end
+        end
+        vim.opt.rtp:prepend(lazypath)
+
+        -- Install required plugins
+        require('lazy').setup({
+            {
+                'dasupradyumna/aurorux.nvim',
+                lazy = false,
+                priority = 1000,
+                config = function ()
+                    require('aurorux').setup {
+                        --- add code here
+                    }
+                    vim.cmd.colorscheme 'aurorux'
+                end,
+            },
+        }, { root = plugins_path })
+      render: Lua
+    validations:
+      required: false
