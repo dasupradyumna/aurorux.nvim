@@ -8,7 +8,7 @@ local function darken(color) return util.blend(color, 0.4, p.normal.dark) end
 local function lighten(color) return util.blend(color, 0.1, p.normal.light) end
 
 return {
-    GitSigsCurrentLineBlame = { link = 'LspInlayHint' },
+    GitSignsCurrentLineBlame = { fg = p.gray1.light },
 
     ----------------------------- UNSTAGED CHANGES ----------------------------
 
