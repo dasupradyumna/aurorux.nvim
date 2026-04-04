@@ -1,0 +1,27 @@
+#------------------------------------ AUTO-UPDATE EXTRA THEMES ------------------------------------#
+
+name: Update Extra Themes
+on:
+  push:
+    paths: [extras/.templates/*]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup NeoVim
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: nightly
+      - name: Run Update Script
+        run: |
+          nvim --version
+          nvim --headless --clean -u extras/.templates/generate.lua
+      - name: Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'bot: Update extra theme files'

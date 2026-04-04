@@ -1,0 +1,108 @@
+[metadata]
+author = 'Dasu Pradyumna [dasupradyumna@gmail.com]'
+name = 'aurorux'
+origin_url = 'https://github.com/dasupradyumna/aurorux.nvim/tree/main/extras/wezterm/aurorux.toml'
+
+#---------------------------- TERMINAL COLORS ----------------------------#
+
+[colors]
+
+# Terminal 4-bit colors
+ansi = [
+    '%{{ normal.dark }}%',
+    '%{{ red.fg.dark }}%',
+    '%{{ green.fg.dark }}%',
+    '%{{ yellow.fg.dark }}%',
+    '%{{ blue.fg.dark }}%',
+    '%{{ magenta.fg.dark }}%',
+    '%{{ cyan.fg.dark }}%',
+    '%{{ gray3.light }}%',
+]
+brights = [
+    '%{{ gray1.light }}%',
+    '%{{ red.fg.light }}%',
+    '%{{ green.fg.light }}%',
+    '%{{ yellow.fg.light }}%',
+    '%{{ blue.fg.light }}%',
+    '%{{ magenta.fg.light }}%',
+    '%{{ cyan.fg.light }}%',
+    '%{{ normal.light }}%',
+]
+
+#-------------------------------- GENERAL --------------------------------#
+
+foreground = '%{{ normal.light }}%'
+background = '%{{ normal.dark }}%'
+cursor_fg = '%{{ normal.dark }}%'
+cursor_bg = '%{{ normal.light }}%'
+cursor_border = '%{{ normal.light }}%'
+compose_cursor = '%{{ magenta.fg.dark }}%'
+# NOTE: Skip `selection_fg` to preserve original FG highlighting
+selection_bg = '%{{ cyan.bg }}%'
+visual_bell = '%{{ red.bg }}%'
+split = '%{{ gray3.dark }}%'
+scrollbar_thumb = '%{{ gray2.dark }}%'
+
+#----------------------------- WEZTERM MODES -----------------------------#
+
+copy_mode_active_highlight_fg = { Color = '%{{ normal.dark }}%' }
+copy_mode_active_highlight_bg = { Color = '%{{ orange.fg.dark }}%' }
+copy_mode_inactive_highlight_fg = { Color = '%{{ normal.dark }}%' }
+copy_mode_inactive_highlight_bg = { Color = '%{{ green.fg.dark }}%' }
+
+quick_select_label_fg = { Color = '%{{ normal.dark }}%' }
+quick_select_label_bg = { Color = '%{{ orange.fg.dark }}%' }
+quick_select_match_fg = { Color = '%{{ normal.dark }}%' }
+quick_select_match_bg = { Color = '%{{ green.fg.dark }}%' }
+
+input_selector_label_fg = { Color = '%{{ green.fg.dark }}%' }
+input_selector_label_bg = { Color = '%{{ normal.dark }}%' }
+
+launcher_label_fg = { Color = '%{{ green.fg.dark }}%' }
+launcher_label_bg = { Color = '%{{ normal.dark }}%' }
+
+#-------------------------------- TAB BAR --------------------------------#
+
+[colors.tab_bar]
+background = '%{{ normal.dark }}%'
+inactive_tab_edge = '%{{ gray3.dark }}%'
+
+[colors.tab_bar.active_tab]
+fg_color = '%{{ normal.light }}%'
+bg_color = '%{{ gray3.dark }}%'
+intensity = 'Bold'
+underline = 'None'
+italic = false
+strikethrough = false
+
+[colors.tab_bar.inactive_tab]
+fg_color = '%{{ gray2.light }}%'
+bg_color = '%{{ normal.dark }}%'
+intensity = 'Normal'
+underline = 'None'
+italic = false
+strikethrough = false
+
+[colors.tab_bar.inactive_tab_hover]
+fg_color = '%{{ gray3.light }}%'
+bg_color = '%{{ gray1.dark }}%'
+intensity = 'Bold'
+underline = 'Single'
+italic = false
+strikethrough = false
+
+[colors.tab_bar.new_tab]
+fg_color = '%{{ gray2.light }}%'
+bg_color = '%{{ normal.dark }}%'
+intensity = 'Bold'
+underline = 'None'
+italic = false
+strikethrough = false
+
+[colors.tab_bar.new_tab_hover]
+fg_color = '%{{ gray3.light }}%'
+bg_color = '%{{ gray1.dark }}%'
+intensity = 'Bold'
+underline = 'Single'
+italic = false
+strikethrough = false
